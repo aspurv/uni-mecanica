@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+
+.header {
+    background-color: #234fb2;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 5px gray;
+    padding: 0;
+}
+.header__imagen {
+    display: inline-flex;
+    position: relative;
+    right: 10px;
+    height: 6rem;
+}
+.header__imagen img {
+    position: relative;
+    top: 10px;
+}
+.header--titulo {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 1.5rem;
+    height: 3rem;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2rem;
+}
+
+.content__text {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 22px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    top: 20px;
+}
+.content__text p {
+    padding: 0;
+    margin: 0;
+}
+
+/* Login titulo */
+.form-login{
+/*     background-color: antiquewhite;
+ */    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 22%;
+    height: 300px;
+    padding: 10px;
+    position: relative;
+    top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 208, 208)
+    ;
+}
+.form-login__user{
+/*     background-color: blueviolet;
+ */    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+.form-login__password{
+    display: flex;
+    flex-direction: column;
+/*     background-color: blueviolet;
+ */    width:100%;
+    padding: 10px;
+}
+.form-login__btn{
+    padding: 10px;
+    position: relative;
+    top: 20px;
+}
+.form-login__btn--modif{
+    background-color: #234fb2;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+    border: 1px solid gray;
+    width: 100%;
+    position: relative;
+    bottom: 10px;
+}
+.form-login__btn--modif:hover{
+    background-color: #0e3181;
+    color: rgb(215, 221, 226);
+}
+
+
+input {
+    margin-right: auto;
+    margin-left: auto;
+    border: none; /* Elimina el borde por defecto */
+    outline: none; /* Elimina el contorno al estar enfocado */
+    border-bottom: 1px solid gray;
+    width: 100%;
+}
+
+/* personalizacion placeholder */
+input:focus::placeholder {
+    opacity: 0;
+}
+::placeholder {
+    font-size: 1.1rem;
+}
+label{
+    position: relative;
+    left: 30px;
+}
+input[type="text"] {
+    width: 250px; /* Tamaño para todos los campos de texto */
+}
+input[type="password"]{
+    width: 250px;
+}
+@media (max-width:1340px) {
+    .form-login{
+        width:40%
+    }
+    .custom-btn{
+        width: 230px;
+    }
+    label{
+        position: relative;
+        left: 64px;
+    }
+}

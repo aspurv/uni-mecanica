@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="/public/assets/css/horario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Montserrat:ital,wght@0,100;0,400;0,800;1,300&family=Poppins:wght@500&family=Roboto:wght@500&family=Source+Code+Pro:wght@200&family=Source+Sans+3:ital,wght@0,400;1,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="website">
+        <div class="conteiner-contenido">
+            <section class="contenido" id="contenido">
+                <div class="container-contenido">
+                    <div class="contenido-cabezera">
+                        <div class="contenido-cabezera1">
+                            <h3>Horario de clase</h3>
+                            <p><span>Nota:</span> Presione en el cuadrado para listar alumnos.</p>
+                            <a href=""><img src="/public/assets/img/slack.svg" alt="PDF">Descargar PDF</a>
+                        </div>
+                        <div class="contenido-cabezera2">
+                            <p>2022 <img src="/imagenes/angle-down-solid.svg" alt="angle"></p>
+                            <label class="text1">DEFINITIVO</label><br>
+                        </div>
+                    </div>
+                    <div class="texto">
+                        <label class="text2">Carga horas diarias: 16 HRS</label>
+                    </div>
+                    <div class="container-tabla">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Lunes</th>
+                                    <th>Martes</th>
+                                    <th>Miercoles</th>
+                                    <th>Jueves</th>
+                                    <th>Viernes</th>
+                                    <th>Sabado</th>
+                                    <th>Domingo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Este espacio se llenará con JavaScript -->
+                                <tbody id="tablaCuerpo">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="/public/assets/js/index.js"></script>
+</body>
+
+</html>

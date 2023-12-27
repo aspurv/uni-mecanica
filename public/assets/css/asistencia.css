@@ -1,0 +1,196 @@
+.container-one {
+    width: 800px;
+    height: 400px;
+    box-shadow: 0 0 3px var(--color-gray-claro);
+}
+
+.semestre {
+    display: flex;
+    width: auto;
+    height: auto;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    transform: translateX(20px);
+}
+
+.semestre p {
+    font-family: 'Kanit', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.semestre .recuadro-semestre {
+    display: flex;
+    width: 120px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1.5px solid var(--color-negro);
+}
+
+.semestre .recuadro-semestre p {
+    font-family: 'Kanit', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.semestre .recuadro-semestre img {
+    width: 20px;
+    margin-right: 5px;
+}
+
+/* ----------------------------------------- */
+
+.container-one .texto-one {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* marcar asistencia */
+
+.marcar-asistencia {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 20px 0;
+}
+
+.marcar-asistencia p {
+    font-family: 'Kanit', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.marcar-asistencia button {
+    margin: 0 10px;
+    background: #35a65c;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.marcar-asistencia-alumnos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 10px 0;
+}
+
+.marcar-asistencia-alumnos button {
+    margin: 0 10px;
+    background: #ff8100;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.recuperacion-justificacion {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 10px 0;
+}
+
+.recuperacion-justificacion button {
+    margin: 0 10px;
+    background: #224fb1;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.otros-registros {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 10px 0;
+}
+
+.otros-registros .puntual button {
+    margin: 0 10px;
+    background: #224fb1;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.otros-registros .tardanza button {
+    margin: 0 10px;
+    background: #224fb1;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.otros-registros .falta button {
+    margin: 0 10px;
+    background: #224fb1;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.otros-registros .nn-nn button {
+    margin: 0 10px;
+    background: #224fb1;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}
+
+.reporte {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 10px 0;
+}
+
+.reporte button {
+    margin: 0 10px;
+    background: #224fb1;
+    color: var(--color-blanco);
+    height: 30px;
+    padding: 0 10px;
+    box-shadow: 0 0 4px var(--color-gray-claro);
+    border: none;
+    cursor: pointer;
+}

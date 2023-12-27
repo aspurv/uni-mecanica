@@ -1,0 +1,251 @@
+
+.menu{
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    overflow-y: scroll;
+    transition: .3s ease-out;
+    background: #fff;
+    border-right: 1.5px solid rgb(150, 149, 149);
+    z-index: 1000;
+}
+
+.menu::-webkit-scrollbar{
+    width: 10px;
+    visibility: hidden;
+    transition: .5s linear;
+}
+.menu::-webkit-scrollbar-thumb{
+    width: 10px;
+    visibility: hidden;
+    transition: .5s linear;
+}
+
+.menu:hover::-webkit-scrollbar{
+    width: 10px;
+    background: transparent;
+    transition: .5s linear;
+}
+
+.menu:hover::-webkit-scrollbar-thumb{
+    width: 10px;
+    background: #dbdbdb;
+    visibility: visible;
+    border-radius: 20px;
+    transition: .5s linear;
+}
+
+.menu.abierto{
+    width: 300px;
+    height: 100vh;
+    position: absolute;
+    transform: translateY(-60px);
+    transform: translateX(-300px);
+    transition: .3s ease-out;
+    border-right: 1.5px solid rgb(150, 149, 149);
+    background: #fff;
+}
+
+.menu .header-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: auto;
+    padding: 10px 5px;
+}
+
+.menu .header-menu img{
+    width: 50px;
+    filter: brightness(0);
+}
+
+.menu .header-menu .title-menu-h{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    margin-left: 10px;
+}
+
+/* GENERAL */
+
+
+.menu .links-menu .menu-left{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu .links-menu .menu-left ul{
+    width: 95%;
+}
+
+.menu .links-menu .menu-left li{
+    list-style: none;
+    width: 100%;
+    padding: 5px 0;
+    margin: 5px;
+    margin-left: 10px;
+    border-bottom: 1.5px solid #b1b1b1;
+    transition: .3s ease-out;
+}
+
+
+.menu .links-menu .menu-left .content-menu li{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+
+.menu .links-menu .menu-left .content-menu .general{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 5px 0;
+    border-radius: 10px;
+}
+
+.menu .links-menu .menu-left .general:hover{
+    background: var(--color-azul-transparente);
+    transition: .3s ease-out;
+}
+
+.menu .links-menu .menu-left .content-menu .one{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+.menu .links-menu .menu-left .content-menu .one img{
+    width: 25px;
+    margin-left: 5px;
+}
+.menu .links-menu .menu-left .content-menu .one p{
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    margin-left: 10px;
+    color: #000;
+}
+
+.menu .links-menu .menu-left li:hover .content-menu .one p{
+    color: var(--color-azul);
+}
+.menu .links-menu .menu-left li:hover .content-menu .one img{
+    filter: invert(11%) sepia(84%) saturate(7406%) hue-rotate(249deg) brightness(87%) contrast(123%);
+}
+
+.menu .links-menu .menu-left .content-menu .two img{
+    width: 20px;
+    transition: .2s linear;
+    transform: translatey(5px);
+    margin-right: 5px;
+}
+
+.menu .links-menu .menu-left li:hover .content-menu .two img{
+    filter: invert(11%) sepia(84%) saturate(7406%) hue-rotate(249deg) brightness(87%) contrast(123%);
+}
+.menu .links-menu   .content-menu .two .img.activo{
+    transition: .2s linear;
+    transform: rotate(180deg);
+}
+
+.menu .content-menu .content-general{
+    display: flex;
+    transition: .3s;
+    cursor: pointer;
+    background: var(--color-medioBlanco);
+}
+.menu .content-menu .content-general.activo{
+    transition: .3s;
+    background: var(--color-medioBlanco);
+}
+
+
+.menu .content-menu .content-general ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu .content-menu .content-general ul li{
+    margin-left: 20px;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 0;
+}
+
+.menu .content-menu .content-general li img{
+    width: 22px;
+    margin-left: 10px;
+    margin-right: 8px;
+}
+
+.menu .content-menu .content-general li:hover{
+    background: var(--color-azul-transparente);
+}
+
+.menu .content-menu .content-general a{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    margin: 0;
+    text-decoration: none;
+    color: var(--color-gray);
+}
+.menu .content-menu .content-general li:hover a{
+    color: var(--color-azul);
+}
+.menu .content-menu .content-general li:hover a img{
+    filter: invert(9%) sepia(96%) saturate(7461%) hue-rotate(248deg) brightness(91%) contrast(113%);
+}
+
+/* administracion */
+
+.menu .links-menu .menu-left .content-menu .administracion{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}
+
+/* acreditacion */
+
+.menu .links-menu .menu-left .content-menu .acreditacion{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}
+/* virtual */
+
+.menu .links-menu .menu-left .content-menu .virtual{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}
+
+/* documentos acedemicos */
+.menu .links-menu .menu-left .content-menu .documentos-academicos{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}

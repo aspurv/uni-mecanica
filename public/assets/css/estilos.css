@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-gray: #141518;
+    --color-negro: #000;
+    --color-rojo2: #E5364A;
+    --color-gray-claro: #323335;
+    --color-blanco: #fff;
+    --color-medioBlanco: #eeeeee;
+    --color-blancoOscuro: #d4d4d4;
+    --color-azul: #180df4;
+    --color-celeste: #2694F7;
+    --color-azul-transparente: #0041f446;
+}
+
+img::selection {
+    display: none;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 300px);
+    transform: translateX(300px);
+    transition: .3s ease-out;
+    height: 60px;
+    background: #234FB2;
+}
+
+.header.completo {
+    width: 100%;
+    transform: translateX(0);
+    transition: .3s ease-out;
+}
+
+.header .one {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .one .abrir-menu {
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.header .one .cerrar-menu {
+    cursor: pointer;
+    margin-left: 0px;
+}
+
+.header .one .abrir-menu span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 4px;
+    background: #fff;
+}
+
+.header .one .abrir-menu.desactivado span {
+    display: none;
+}
+
+.header .one .abrir-menu .line-one {
+    margin-bottom: 4px;
+}
+
+.header .one .abrir-menu .line-two {
+    margin-bottom: 4px;
+}
+
+.header .one .cerrar-menu span {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 4px;
+    background: #fff;
+}
+
+.header .one .cerrar-menu.activo span {
+    display: flex;
+}
+
+.header .one .cerrar-menu .line-one {
+    margin-bottom: 4px;
+}
+
+.header .one .cerrar-menu .line-two {
+    margin-bottom: 4px;
+}
+
+.header .name {
+    margin-left: 10px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--color-blanco);
+}
+
+.header .settings {
+    position: absolute;
+    right: 20px;
+}
+
+.header .settings img {
+    width: 25px;
+    filter: invert(99%) sepia(34%) saturate(339%) hue-rotate(316deg) brightness(121%) contrast(100%);
+}
+
+.settings:hover{
+    background-color: #180df4;
+}
+
+/* ----------------- */
