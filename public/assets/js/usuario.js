@@ -90,6 +90,9 @@ function sidebarToggle(){
 function mostrarHorario() {
     document.querySelector('.conteiner-contenido > #contenido').style.display = 'none';
     document.getElementById('horario-page').style.display = 'block';
+    document.getElementById('horario-page').style.marginLeft = 'auto';
+    document.getElementById('horaio-page').style.marginRight = 'auto';
+
 }
 
 // Función para mostrar la sección principal y ocultar las páginas específicas

@@ -17,8 +17,7 @@ if (mysqli_num_rows($resultado) == 1) {
     header("location: ../view/usuario.php");
 } else {
     // Las credenciales son inválidas, redirigir al index.php con el parámetro de error
-    echo 'hola';
-
+    header("location: /index.php");
 }
 
 ?>

@@ -1,5 +1,5 @@
 // Cargar datos desde el archivo JSON
-fetch('app\model\conexion_bd.php')
+fetch('/public/assets/json/horario.json')
   .then(response => response.json()) // Parsear la respuesta como JSON
   .then(data => {
     const tablaCuerpo = document.getElementById(data.tablaCuerpo); // Obtener el cuerpo de la tabla desde el JSON
