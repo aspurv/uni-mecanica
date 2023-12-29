@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./public/assets/css/login.css">
 </head>
-
 <body>
-
     <!-- Comienzo del contenedor del login -->
     <header class="header">
         <div class="header__imagen">
@@ -33,11 +30,9 @@
             <p class="opacidad">Sistema de Planificación de Recursos Académicos y Empresariales</p>
         </h4>
     </div>
-
-
     <!-- Creación de formulario -->
     <div class="form-login">
-        <form action='./app/controller/controlador.php' method="POST"></form>
+        <form action='./app/controller/controlador.php' method="post">
             <div class="form-login__user">
                 <label for="">Usuario</label>
                 <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario">

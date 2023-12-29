@@ -18,9 +18,6 @@
 </head>
 
 <body>
-	<?php
-	include ("conexion.php");
-	?>
 	<!-- Inico del menu de la aplicacion web -->
 	<div class="website">
 		<div class="container-menu">

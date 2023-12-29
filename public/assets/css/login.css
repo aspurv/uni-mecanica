@@ -125,10 +125,9 @@ input:focus::placeholder {
 ::placeholder {
     font-size: 1.1rem;
 }
-label{
-    position: relative;
-    left: 30px;
-}
+/* label{
+    
+} */
 input[type="text"] {
     width: 250px; /* Tamaño para todos los campos de texto */
 }
