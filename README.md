@@ -1,4 +1,4 @@
-# 🕒 Módulo de Horario para la Facultad de Ingeniería Mecánica - Universidad Nacional de Ingeniería
+# Módulo de Horario para la Facultad de Ingeniería Mecánica - Universidad Nacional de Ingeniería
 
 Este proyecto se enfoca en la implementación de un sistema de horario para la Facultad de Ingeniería Mecánica de la Universidad Nacional de Ingeniería. Su objetivo principal es mejorar la visualización de horarios y optimizar la gestión de recursos educativos para ofrecer una experiencia educativa de calidad.
 
