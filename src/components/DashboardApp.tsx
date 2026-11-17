@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ScheduleTable from './ScheduleTable';
+import { GlassPanel, GlassButton, GlassBadge } from './glassyui';
 
 interface DashboardProps {
   initialRole?: 'usuario' | 'administrador';
@@ -28,7 +29,6 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           console.error(e);
         }
       } else {
-        // Si no hay sesión, usar datos por defecto
         if (initialRole === 'administrador') {
           setUserName('Administrador FIM');
         }
@@ -45,13 +45,17 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
 
   return (
     <div className="dashboard-layout">
-      {/* Sidebar Glass */}
-      <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
+      {/* Sidebar Glassy UI */}
+      <aside className={`sidebar lg-glass-surface ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
           <img src={`${base}assets/img/UNI.png`} alt="UNI Logo" className="sidebar-logo" />
           <div className="sidebar-title">
             <span className="uni-label">UNI EARPFIM</span>
-            <span className="role-label">{role === 'administrador' ? 'ADMINISTRADOR' : 'DOCENTE'}</span>
+            <div className="mt-1">
+              <GlassBadge tone={role === 'administrador' ? 'purple' : 'blue'} dot>
+                {role === 'administrador' ? 'ADMINISTRADOR' : 'DOCENTE'}
+              </GlassBadge>
+            </div>
           </div>
         </div>
 
@@ -102,7 +106,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
       {/* Main Content Area */}
       <div className={`main-wrapper ${sidebarOpen ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
         {/* Header Bar */}
-        <header className="top-header">
+        <header className="top-header lg-glass-surface">
           <div className="header-left">
             <button
               className="toggle-sidebar-btn"
@@ -122,14 +126,14 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           </div>
 
           <div className="header-right">
-            <button onClick={handleLogout} className="btn-logout" title="Cerrar sesión">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <GlassButton variant="soft" size="sm" onClick={handleLogout} title="Cerrar sesión">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
                 <line x1="21" y1="12" x2="9" y2="12"></line>
               </svg>
               <span>Cerrar sesión</span>
-            </button>
+            </GlassButton>
           </div>
         </header>
 
@@ -137,7 +141,10 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
         <main className="content-body">
           {currentSection === 'home' ? (
             <div className="welcome-hero">
-              <div className="hero-card">
+              <GlassPanel variant="card" className="hero-card">
+                <div className="flex justify-center mb-4">
+                  <GlassBadge tone="blue" dot>SISTEMA UNIVERSITARIO EARPFIM</GlassBadge>
+                </div>
                 <h1 className="welcome-title">
                   BIENVENIDO AL EARPFIM <br />
                   <span className="welcome-zone">
@@ -153,11 +160,15 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
                 </div>
 
                 <div className="hero-actions">
-                  <button onClick={() => setCurrentSection('horario')} className="btn-hero-action">
+                  <GlassButton
+                    variant="prominent"
+                    size="lg"
+                    onClick={() => setCurrentSection('horario')}
+                  >
                     📅 Ver Horario Académico
-                  </button>
+                  </GlassButton>
                 </div>
-              </div>
+              </GlassPanel>
             </div>
           ) : (
             <div className="schedule-view-wrapper">
@@ -181,10 +192,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           left: 0;
           bottom: 0;
           width: 270px;
-          background: rgba(10, 16, 38, 0.75);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border-right: 1px solid rgba(255, 255, 255, 0.12);
+          border-right: 1px solid var(--lg-border);
           display: flex;
           flex-direction: column;
           z-index: 100;
@@ -200,7 +208,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           align-items: center;
           gap: 14px;
           padding: 24px 20px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid var(--lg-border);
         }
 
         .sidebar-logo {
@@ -222,13 +230,6 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           color: #ffffff;
         }
 
-        .role-label {
-          font-size: 11px;
-          font-weight: 500;
-          color: #60a5fa;
-          letter-spacing: 0.08em;
-        }
-
         .sidebar-nav {
           padding: 20px 14px;
           display: flex;
@@ -243,7 +244,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           align-items: center;
           padding: 12px 14px;
           background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid var(--lg-border);
           border-radius: 12px;
           color: #ffffff;
           font-family: var(--font-main);
@@ -267,7 +268,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
         .chevron {
           font-size: 10px;
           transition: transform 0.2s ease;
-          color: rgba(255, 255, 255, 0.5);
+          color: var(--lg-muted-foreground);
         }
 
         .chevron.open {
@@ -290,7 +291,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           background: transparent;
           border: 1px solid transparent;
           border-radius: 10px;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--lg-muted-foreground);
           font-family: var(--font-main);
           font-size: 13px;
           cursor: pointer;
@@ -331,10 +332,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
         .top-header {
           height: 64px;
           padding: 0 24px;
-          background: rgba(10, 16, 38, 0.55);
-          backdrop-filter: blur(18px);
-          -webkit-backdrop-filter: blur(18px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid var(--lg-border);
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -351,7 +349,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
 
         .toggle-sidebar-btn {
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.14);
+          border: 1px solid var(--lg-border);
           border-radius: 8px;
           padding: 8px;
           cursor: pointer;
@@ -387,33 +385,8 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           align-items: center;
           gap: 8px;
           font-size: 13.5px;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgba(255, 255, 255, 0.95);
           font-weight: 500;
-        }
-
-        .btn-logout {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 7px 16px;
-          background: rgba(239, 68, 68, 0.15);
-          border: 1px solid rgba(239, 68, 68, 0.35);
-          border-radius: 9999px;
-          color: #fca5a5;
-          font-family: var(--font-main);
-          font-size: 12.5px;
-          font-weight: 500;
-          cursor: pointer;
-          backdrop-filter: blur(8px);
-          transition: all 0.2s ease;
-        }
-
-        .btn-logout:hover {
-          background: rgba(239, 68, 68, 0.28);
-          border-color: rgba(239, 68, 68, 0.55);
-          color: #ffffff;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
         }
 
         /* Content */
@@ -432,14 +405,9 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
         .hero-card {
           max-width: 680px;
           width: 100%;
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 24px;
+          border-radius: 28px;
           padding: 48px 36px;
           text-align: center;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
           animation: fadeInHero 0.5s ease-out;
         }
 
@@ -466,7 +434,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
         .welcome-desc {
           margin-top: 14px;
           font-size: 13.5px;
-          color: rgba(255, 255, 255, 0.65);
+          color: var(--lg-muted-foreground);
           line-height: 1.5;
         }
 
@@ -480,29 +448,25 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
         }
 
-        .btn-hero-action {
-          padding: 12px 24px;
-          background: linear-gradient(135deg, #2563eb, #1d4ed8);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 12px;
-          color: #ffffff;
-          font-family: var(--font-heading);
-          font-size: 13.5px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 4px 18px rgba(37, 99, 235, 0.35);
-        }
-
-        .btn-hero-action:hover {
-          background: linear-gradient(135deg, #3b82f6, #2563eb);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(37, 99, 235, 0.5);
-        }
-
         .schedule-view-wrapper {
           max-width: 1200px;
           margin: 0 auto;
+        }
+
+        .mt-1 {
+          margin-top: 4px;
+        }
+
+        .mb-4 {
+          margin-bottom: 16px;
+        }
+
+        .flex {
+          display: flex;
+        }
+
+        .justify-center {
+          justify-content: center;
         }
 
         @media (max-width: 768px) {

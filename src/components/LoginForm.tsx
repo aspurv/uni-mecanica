@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GlassPanel, GlassInput, GlassButton, GlassBadge } from './glassyui';
 
 export default function LoginForm() {
   const [usuario, setUsuario] = useState('');
@@ -21,7 +22,6 @@ export default function LoginForm() {
 
     setLoading(true);
 
-    // Simulación de autenticación con guardado en localStorage
     setTimeout(() => {
       setLoading(false);
       const userLower = usuario.trim().toLowerCase();
@@ -36,7 +36,6 @@ export default function LoginForm() {
         nombre = 'Obregón Ramos, Máximo';
       }
 
-      // Guardar sesión en cliente para navegación en la SPA/Astro
       if (typeof window !== 'undefined') {
         localStorage.setItem('uni_session', JSON.stringify({
           usuario: usuario.trim(),
@@ -64,7 +63,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-wrapper">
-      <div className="login-glass-card">
+      <GlassPanel variant="card" className="login-glass-card">
         {/* Header con Escudo y Títulos */}
         <div className="card-header">
           <img 
@@ -83,48 +82,44 @@ export default function LoginForm() {
 
         {/* Subtítulos */}
         <div className="card-subtitle">
+          <div className="badge-row">
+            <GlassBadge tone="blue" dot>PORTAL ACADÉMICO</GlassBadge>
+          </div>
           <h2 className="intranet-title">INTRANET EARPFIM</h2>
           <p className="intranet-desc">Sistema de Planificación de Recursos Académicos y Empresariales</p>
         </div>
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label htmlFor="usuario">Usuario</label>
-            <div className="input-container">
-              <input
-                id="usuario"
-                type="text"
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)}
-                placeholder="Ingrese su usuario"
-                autoComplete="username"
-                disabled={loading}
-              />
-            </div>
-          </div>
+          <GlassInput
+            id="usuario"
+            label="Usuario"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+            placeholder="Ingrese su usuario"
+            autoComplete="username"
+            disabled={loading}
+          />
 
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <div className="input-container">
-              <input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Ingrese su contraseña"
-                autoComplete="current-password"
-                disabled={loading}
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={() => setShowPassword(!showPassword)}
-                tabIndex={-1}
-              >
-                {showPassword ? 'Ocultar' : 'Ver'}
-              </button>
-            </div>
+          <div className="password-group">
+            <GlassInput
+              id="password"
+              label="Contraseña"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Ingrese su contraseña"
+              autoComplete="current-password"
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+              tabIndex={-1}
+            >
+              {showPassword ? 'Ocultar' : 'Ver'}
+            </button>
           </div>
 
           {error && (
@@ -138,24 +133,40 @@ export default function LoginForm() {
             </div>
           )}
 
-          <button type="submit" className="btn-submit" disabled={loading}>
+          <GlassButton
+            type="submit"
+            variant="prominent"
+            size="lg"
+            className="w-full mt-2"
+            disabled={loading}
+          >
             {loading ? 'INGRESANDO...' : 'INICIAR SESIÓN'}
-          </button>
+          </GlassButton>
         </form>
 
         {/* Accesos rápidos de prueba */}
         <div className="quick-access">
-          <span className="quick-label">Acceso rápido de prueba:</span>
+          <span className="quick-label">Acceso rápido con Glassy UI:</span>
           <div className="quick-buttons">
-            <button type="button" onClick={() => handleDemoFill('usuario')} className="quick-btn">
+            <GlassButton
+              type="button"
+              variant="soft"
+              size="sm"
+              onClick={() => handleDemoFill('usuario')}
+            >
               👨‍🏫 Docente
-            </button>
-            <button type="button" onClick={() => handleDemoFill('admin')} className="quick-btn">
+            </GlassButton>
+            <GlassButton
+              type="button"
+              variant="soft"
+              size="sm"
+              onClick={() => handleDemoFill('admin')}
+            >
               ⚙️ Administrador
-            </button>
+            </GlassButton>
           </div>
         </div>
-      </div>
+      </GlassPanel>
 
       <style>{`
         .login-wrapper {
@@ -169,13 +180,8 @@ export default function LoginForm() {
         .login-glass-card {
           width: 100%;
           max-width: 440px;
-          background: rgba(255, 255, 255, 0.08);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 20px;
           padding: 36px 32px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          border-radius: 24px;
           animation: cardFloat 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -195,7 +201,7 @@ export default function LoginForm() {
           align-items: center;
           gap: 16px;
           padding-bottom: 20px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          border-bottom: 1px solid var(--lg-border);
         }
 
         .uni-logo {
@@ -232,6 +238,12 @@ export default function LoginForm() {
           text-align: center;
         }
 
+        .badge-row {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 12px;
+        }
+
         .intranet-title {
           font-family: var(--font-heading);
           font-size: 20px;
@@ -242,7 +254,7 @@ export default function LoginForm() {
 
         .intranet-desc {
           font-size: 11.5px;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--lg-muted-foreground);
           margin-top: 4px;
           line-height: 1.4;
         }
@@ -253,56 +265,21 @@ export default function LoginForm() {
           gap: 18px;
         }
 
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-
-        .form-group label {
-          font-size: 12.5px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.85);
-        }
-
-        .input-container {
+        .password-group {
           position: relative;
-          display: flex;
-          align-items: center;
-        }
-
-        .input-container input {
-          width: 100%;
-          padding: 12px 14px;
-          background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          border-radius: 10px;
-          color: #ffffff;
-          font-family: var(--font-main);
-          font-size: 13.5px;
-          outline: none;
-          transition: all 0.2s ease;
-        }
-
-        .input-container input:focus {
-          background: rgba(255, 255, 255, 0.12);
-          border-color: rgba(96, 165, 250, 0.65);
-          box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
-        }
-
-        .input-container input::placeholder {
-          color: rgba(255, 255, 255, 0.35);
         }
 
         .toggle-password {
           position: absolute;
           right: 12px;
+          top: 36px;
           background: none;
           border: none;
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--lg-muted-foreground);
           font-size: 11.5px;
           cursor: pointer;
           transition: color 0.2s;
+          z-index: 5;
         }
 
         .toggle-password:hover {
@@ -321,68 +298,32 @@ export default function LoginForm() {
           font-size: 12px;
         }
 
-        .btn-submit {
+        .w-full {
+          width: 100%;
+        }
+
+        .mt-2 {
           margin-top: 8px;
-          padding: 13px;
-          background: linear-gradient(135deg, #2563eb, #1d4ed8);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 10px;
-          color: #ffffff;
-          font-family: var(--font-heading);
-          font-size: 13px;
-          font-weight: 600;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-          transition: all 0.25s ease;
-          box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn-submit:hover:not(:disabled) {
-          background: linear-gradient(135deg, #3b82f6, #2563eb);
-          transform: translateY(-1px);
-          box-shadow: 0 6px 24px rgba(37, 99, 235, 0.55);
-        }
-
-        .btn-submit:disabled {
-          opacity: 0.65;
-          cursor: not-allowed;
         }
 
         .quick-access {
           margin-top: 24px;
           padding-top: 18px;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-top: 1px solid var(--lg-border);
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
         }
 
         .quick-label {
           font-size: 11px;
-          color: rgba(255, 255, 255, 0.5);
+          color: var(--lg-muted-foreground);
         }
 
         .quick-buttons {
           display: flex;
           gap: 10px;
-        }
-
-        .quick-btn {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 8px;
-          padding: 6px 12px;
-          color: rgba(255, 255, 255, 0.85);
-          font-size: 11.5px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .quick-btn:hover {
-          background: rgba(255, 255, 255, 0.16);
-          border-color: rgba(255, 255, 255, 0.3);
-          color: #ffffff;
         }
       `}</style>
     </div>

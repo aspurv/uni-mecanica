@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GlassPanel, GlassBadge, GlassButton } from './glassyui';
 
 interface HorarioData {
   tablaCuerpo: string;
@@ -32,34 +33,11 @@ const DIAS = ['Hora', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sá
 export default function ScheduleTable() {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
-  const getCourseStyle = (course: string) => {
-    if (!course) return {};
-    if (course.includes('MC510')) {
-      return {
-        background: 'rgba(59, 130, 246, 0.28)',
-        border: '1px solid rgba(96, 165, 250, 0.45)',
-        color: '#93c5fd'
-      };
-    }
-    if (course.includes('MC520')) {
-      return {
-        background: 'rgba(168, 85, 247, 0.28)',
-        border: '1px solid rgba(192, 132, 252, 0.45)',
-        color: '#d8b4fe'
-      };
-    }
-    if (course.includes('MC500')) {
-      return {
-        background: 'rgba(16, 185, 129, 0.28)',
-        border: '1px solid rgba(52, 211, 153, 0.45)',
-        color: '#6ee7b7'
-      };
-    }
-    return {
-      background: 'rgba(255, 255, 255, 0.15)',
-      border: '1px solid rgba(255, 255, 255, 0.25)',
-      color: '#ffffff'
-    };
+  const getBadgeTone = (course: string): 'blue' | 'purple' | 'green' | 'neutral' => {
+    if (course.includes('MC510')) return 'blue';
+    if (course.includes('MC520')) return 'purple';
+    if (course.includes('MC500')) return 'green';
+    return 'neutral';
   };
 
   return (
@@ -73,10 +51,8 @@ export default function ScheduleTable() {
           </p>
         </div>
         <div className="header-tags">
-          <div className="period-pill">
-            <span>2024-II</span>
-          </div>
-          <span className="badge-definitivo">DEFINITIVO</span>
+          <GlassBadge tone="neutral">Periodo 2024-II</GlassBadge>
+          <GlassBadge tone="green" dot>DEFINITIVO</GlassBadge>
         </div>
       </div>
 
@@ -86,19 +62,24 @@ export default function ScheduleTable() {
 
       {/* Detalle seleccionado */}
       {selectedCourse && (
-        <div className="course-detail-banner">
+        <GlassPanel variant="card" className="course-detail-banner">
           <div>
-            <span className="course-code">{selectedCourse}</span>
+            <div className="flex items-center gap-2 mb-1">
+              <GlassBadge tone={getBadgeTone(selectedCourse)} dot>
+                {selectedCourse.split(' ')[0]}
+              </GlassBadge>
+              <span className="course-code">{selectedCourse}</span>
+            </div>
             <p className="course-type">Modalidad: Virtual Teórico | Facultad de Ingeniería Mecánica</p>
           </div>
-          <button className="btn-close-detail" onClick={() => setSelectedCourse(null)}>
+          <GlassButton variant="soft" size="sm" onClick={() => setSelectedCourse(null)}>
             ✕ Cerrar
-          </button>
-        </div>
+          </GlassButton>
+        </GlassPanel>
       )}
 
       {/* Tabla Glass */}
-      <div className="table-wrapper">
+      <GlassPanel variant="panel" className="table-wrapper">
         <table className="schedule-table">
           <thead>
             <tr>
@@ -131,9 +112,12 @@ export default function ScheduleTable() {
                       onClick={() => hasData && setSelectedCourse(celda)}
                     >
                       {hasData && (
-                        <div className="course-pill" style={getCourseStyle(celda)}>
+                        <GlassBadge
+                          tone={getBadgeTone(celda)}
+                          className="course-badge"
+                        >
                           {celda}
-                        </div>
+                        </GlassBadge>
                       )}
                     </td>
                   );
@@ -142,7 +126,7 @@ export default function ScheduleTable() {
             ))}
           </tbody>
         </table>
-      </div>
+      </GlassPanel>
 
       <style>{`
         .schedule-container {
@@ -163,7 +147,7 @@ export default function ScheduleTable() {
           gap: 16px;
           margin-bottom: 16px;
           padding-bottom: 16px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          border-bottom: 1px solid var(--lg-border);
         }
 
         .title {
@@ -175,7 +159,7 @@ export default function ScheduleTable() {
 
         .subtitle {
           font-size: 13px;
-          color: rgba(255, 255, 255, 0.65);
+          color: var(--lg-muted-foreground);
           margin-top: 4px;
         }
 
@@ -187,38 +171,17 @@ export default function ScheduleTable() {
         .header-tags {
           display: flex;
           align-items: center;
-          gap: 12px;
-        }
-
-        .period-pill {
-          padding: 6px 14px;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 9999px;
-          font-size: 13px;
-          font-weight: 500;
-          color: #ffffff;
-        }
-
-        .badge-definitivo {
-          padding: 6px 14px;
-          background: rgba(16, 185, 129, 0.2);
-          border: 1px solid rgba(52, 211, 153, 0.45);
-          border-radius: 9999px;
-          font-size: 11.5px;
-          font-weight: 700;
-          letter-spacing: 0.05em;
-          color: #6ee7b7;
+          gap: 10px;
         }
 
         .hours-banner {
           margin-bottom: 18px;
-          padding: 10px 16px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
+          padding: 12px 18px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--lg-border);
+          border-radius: 12px;
           font-size: 13px;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.85);
         }
 
         .course-detail-banner {
@@ -226,11 +189,8 @@ export default function ScheduleTable() {
           justify-content: space-between;
           align-items: center;
           margin-bottom: 18px;
-          padding: 14px 18px;
-          background: rgba(59, 130, 246, 0.18);
-          border: 1px solid rgba(96, 165, 250, 0.4);
-          border-radius: 12px;
-          backdrop-filter: blur(12px);
+          padding: 16px 20px;
+          border-radius: 14px;
           animation: slideDown 0.25s ease-out;
         }
 
@@ -240,39 +200,22 @@ export default function ScheduleTable() {
         }
 
         .course-code {
-          font-weight: 700;
-          font-size: 14px;
+          font-weight: 600;
+          font-size: 13.5px;
           color: #ffffff;
+          margin-left: 6px;
         }
 
         .course-type {
           font-size: 12px;
-          color: rgba(255, 255, 255, 0.7);
-          margin-top: 2px;
-        }
-
-        .btn-close-detail {
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.25);
-          border-radius: 8px;
-          padding: 6px 12px;
-          color: #ffffff;
-          font-size: 12px;
-          cursor: pointer;
-        }
-
-        .btn-close-detail:hover {
-          background: rgba(255, 255, 255, 0.22);
+          color: var(--lg-muted-foreground);
+          margin-top: 4px;
         }
 
         .table-wrapper {
           overflow-x: auto;
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          border-radius: 16px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+          border-radius: 18px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .schedule-table {
@@ -284,11 +227,11 @@ export default function ScheduleTable() {
 
         .schedule-table th {
           padding: 14px 12px;
-          background: rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.06);
           font-size: 12.5px;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.9);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+          border-bottom: 1px solid var(--lg-border);
         }
 
         .th-hour {
@@ -298,16 +241,16 @@ export default function ScheduleTable() {
 
         .schedule-table td {
           padding: 8px 10px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-          border-right: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-right: 1px solid rgba(255, 255, 255, 0.04);
           height: 48px;
           font-size: 12px;
         }
 
         .td-hour {
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.65);
-          background: rgba(255, 255, 255, 0.03);
+          color: var(--lg-muted-foreground);
+          background: rgba(255, 255, 255, 0.02);
           font-family: monospace;
           font-size: 12px;
         }
@@ -316,19 +259,17 @@ export default function ScheduleTable() {
           cursor: pointer;
         }
 
-        .course-pill {
-          padding: 8px 10px;
-          border-radius: 8px;
+        .course-badge {
+          display: inline-block;
           font-size: 11px;
-          font-weight: 600;
+          padding: 6px 10px;
+          white-space: normal;
           line-height: 1.3;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .course-pill:hover {
+        .course-badge:hover {
           transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
         }
       `}</style>
     </div>
