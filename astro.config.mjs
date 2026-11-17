@@ -1,9 +1,12 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 
-// https://astro.build/config
+// Si se despliega en GitHub Pages (GitHub Actions), se usa la subruta '/uni-mecanica'.
+// En Vercel o en entorno local, se sirve desde la raíz '/'.
+const isGitHubPages = Boolean(process.env.GITHUB_ACTIONS && !process.env.VERCEL);
+
 export default defineConfig({
-  site: 'https://aspurv.github.io',
-  base: '/uni-mecanica',
+  site: isGitHubPages ? 'https://aspurv.github.io' : undefined,
+  base: isGitHubPages ? '/uni-mecanica' : '/',
   integrations: [react()]
 });
