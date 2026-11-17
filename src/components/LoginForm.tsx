@@ -7,6 +7,9 @@ export default function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const rawBase = import.meta.env.BASE_URL || '/';
+  const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -42,11 +45,8 @@ export default function LoginForm() {
           timestamp: Date.now()
         }));
 
-        if (rol === 'administrador') {
-          window.location.href = '/administrador';
-        } else {
-          window.location.href = '/usuario';
-        }
+        const destination = rol === 'administrador' ? 'administrador' : 'usuario';
+        window.location.href = `${base}${destination}`;
       }
     }, 600);
   };
@@ -68,11 +68,11 @@ export default function LoginForm() {
         {/* Header con Escudo y Títulos */}
         <div className="card-header">
           <img 
-            src="/assets/img/logo2.png" 
+            src={`${base}assets/img/logo2.png`} 
             alt="UNI Logo" 
             className="uni-logo" 
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = '/assets/img/UNI.png';
+              (e.currentTarget as HTMLImageElement).src = `${base}assets/img/UNI.png`;
             }}
           />
           <div className="header-titles">

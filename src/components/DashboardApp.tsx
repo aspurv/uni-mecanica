@@ -13,6 +13,9 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
   const [currentSection, setCurrentSection] = useState<'home' | 'horario'>(initialSection);
   const [generalMenuOpen, setGeneralMenuOpen] = useState<boolean>(true);
 
+  const rawBase = import.meta.env.BASE_URL || '/';
+  const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('uni_session');
@@ -25,7 +28,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
           console.error(e);
         }
       } else {
-        // Si no hay sesión, permitir explorar pero usar datos de demostración
+        // Si no hay sesión, usar datos por defecto
         if (initialRole === 'administrador') {
           setUserName('Administrador FIM');
         }
@@ -36,7 +39,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('uni_session');
-      window.location.href = '/';
+      window.location.href = base;
     }
   };
 
@@ -45,7 +48,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
       {/* Sidebar Glass */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
-          <img src="/assets/img/UNI.png" alt="UNI Logo" className="sidebar-logo" />
+          <img src={`${base}assets/img/UNI.png`} alt="UNI Logo" className="sidebar-logo" />
           <div className="sidebar-title">
             <span className="uni-label">UNI EARPFIM</span>
             <span className="role-label">{role === 'administrador' ? 'ADMINISTRADOR' : 'DOCENTE'}</span>
@@ -146,7 +149,7 @@ export default function DashboardApp({ initialRole = 'usuario', initialSection =
                 </p>
 
                 <div className="welcome-image">
-                  <img src="/assets/img/tuerca.gif" alt="Animación FIM" />
+                  <img src={`${base}assets/img/tuerca.gif`} alt="Animación FIM" />
                 </div>
 
                 <div className="hero-actions">
