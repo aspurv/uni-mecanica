@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DashboardApp from '../components/DashboardApp';
+---
+
+<Layout title="UNI | EARPFIM - Zona Administrador">
+  <DashboardApp client:load initialRole="administrador" initialSection="home" />
+</Layout>

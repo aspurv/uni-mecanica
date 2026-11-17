@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DashboardApp from '../components/DashboardApp';
+---
+
+<Layout title="UNI | EARPFIM - Mi Horario de Clases">
+  <DashboardApp client:load initialRole="usuario" initialSection="horario" />
+</Layout>

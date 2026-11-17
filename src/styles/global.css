@@ -1,0 +1,89 @@
+/* ============================================================
+   GLOBAL & LIQUID GLASS DESIGN SYSTEM
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #1d4ed8;
+  --color-accent: #60a5fa;
+  --color-bg-start: #0a0f24;
+  --color-bg-mid: #1e1b4b;
+  --color-bg-end: #0c4a6e;
+  
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-focus: rgba(96, 165, 250, 0.5);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+
+  --text-white: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.65);
+  --text-dim: rgba(255, 255, 255, 0.45);
+
+  --font-main: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Montserrat', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  min-height: 100vh;
+  color: var(--text-white);
+  background: linear-gradient(135deg, #090d1a 0%, #17153b 40%, #0d2847 70%, #051329 100%);
+  background-size: 300% 300%;
+  animation: liquidMesh 20s ease infinite;
+  overflow-x: hidden;
+}
+
+@keyframes liquidMesh {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Glass Utility Classes */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px;
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
