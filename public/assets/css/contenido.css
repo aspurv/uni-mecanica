@@ -1,4 +1,8 @@
-.contenido{
+/* ============================================================
+   MAIN CONTENT AREA — Airy, transparent, glass aesthetic
+   ============================================================ */
+
+.contenido {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,28 +11,39 @@
     width: calc(100% - 300px);
     height: calc(100vh - 60px);
     transition: .3s ease-out;
+    /* Transparent — the animated body gradient shows through */
+    background: transparent;
+    padding: 40px;
 }
 
-.contenido.completo{
+.contenido.completo {
     width: 100%;
     height: calc(100vh - 60px);
     transform: translateX(0);
     transition: .3s ease-out;
 }
 
-.contenido h1{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 50px;
-    font-weight: 400;
+/* Welcome heading — large, light weight */
+.contenido h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
     text-align: center;
-    color: var(--color-gray-claro);
+    color: rgba(255, 255, 255, 0.90);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.18);
 }
 
-.contenido h1 span{
+.contenido h1 span {
     font-weight: 500;
-    color: var(--color-gray);
+    color: #fff;
 }
 
-.contenido img{
-    width: 250px;
+/* Illustration / mascot image */
+.contenido img {
+    width: 220px;
+    opacity: 0.85;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.20));
+    margin-top: 24px;
 }

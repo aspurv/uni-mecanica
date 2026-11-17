@@ -1,79 +1,86 @@
+/* ============================================================
+   SIDEBAR MENU — Glass Panel
+   ============================================================ */
 
-.menu{
+.menu {
     width: 300px;
     height: 100vh;
     position: fixed;
     left: 0;
+    top: 0;
     overflow-y: scroll;
     transition: .3s ease-out;
-    background: #fff;
-    border-right: 1.5px solid rgb(150, 149, 149);
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
     z-index: 1000;
 }
 
-.menu::-webkit-scrollbar{
-    width: 10px;
-    visibility: hidden;
-    transition: .5s linear;
-}
-.menu::-webkit-scrollbar-thumb{
-    width: 10px;
-    visibility: hidden;
-    transition: .5s linear;
-}
-
-.menu:hover::-webkit-scrollbar{
-    width: 10px;
+/* Hidden scrollbar, visible on hover */
+.menu::-webkit-scrollbar {
+    width: 5px;
     background: transparent;
-    transition: .5s linear;
+}
+.menu::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: .3s linear;
+}
+.menu:hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
 }
 
-.menu:hover::-webkit-scrollbar-thumb{
-    width: 10px;
-    background: #dbdbdb;
-    visibility: visible;
-    border-radius: 20px;
-    transition: .5s linear;
-}
-
-.menu.abierto{
+/* Closed state — slide out */
+.menu.abierto {
     width: 300px;
     height: 100vh;
-    position: absolute;
-    transform: translateY(-60px);
+    position: fixed;
     transform: translateX(-300px);
     transition: .3s ease-out;
-    border-right: 1.5px solid rgb(150, 149, 149);
-    background: #fff;
 }
 
-.menu .header-menu{
+/* ============================================================
+   SIDEBAR HEADER
+   ============================================================ */
+.menu .header-menu {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
     height: auto;
-    padding: 10px 5px;
+    padding: 18px 16px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    gap: 10px;
 }
 
-.menu .header-menu img{
+/* Logo — white filtered */
+.menu .header-menu img {
     width: 50px;
-    filter: brightness(0);
+    filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.3));
 }
 
-.menu .header-menu .title-menu-h{
+.menu .header-menu .title-menu-h {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    margin-left: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2px;
 }
 
-/* GENERAL */
+/* Title text colors — white on glass */
+.menu .header-menu .title-menu-h * {
+    color: rgba(255, 255, 255, 0.90);
+    font-family: 'Poppins', sans-serif;
+}
 
+/* ============================================================
+   MENU LINKS
+   ============================================================ */
 
-.menu .links-menu .menu-left{
+.menu .links-menu .menu-left {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -81,171 +88,176 @@
     justify-content: space-between;
 }
 
-.menu .links-menu .menu-left ul{
+.menu .links-menu .menu-left ul {
     width: 95%;
 }
 
-.menu .links-menu .menu-left li{
+/* Top-level list items */
+.menu .links-menu .menu-left li {
     list-style: none;
     width: 100%;
-    padding: 5px 0;
-    margin: 5px;
-    margin-left: 10px;
-    border-bottom: 1.5px solid #b1b1b1;
-    transition: .3s ease-out;
+    padding: 4px 0;
+    margin: 4px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: .2s ease-out;
 }
 
-
-.menu .links-menu .menu-left .content-menu li{
+/* Pill-shaped hover on the entire item */
+.menu .links-menu .menu-left .content-menu li {
     display: flex;
     width: 100%;
     flex-direction: column;
-    align-items: start;
-    justify-content: start;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
-.menu .links-menu .menu-left .content-menu .general{
+.menu .links-menu .menu-left .content-menu .general {
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    padding: 5px 0;
+    padding: 8px 10px;
     border-radius: 10px;
+    width: 100%;
+    transition: background .2s ease, box-shadow .2s ease;
 }
 
-.menu .links-menu .menu-left .general:hover{
-    background: var(--color-azul-transparente);
-    transition: .3s ease-out;
+/* Pill highlight on hover */
+.menu .links-menu .menu-left .general:hover {
+    background: rgba(79, 142, 247, 0.20);
+    box-shadow: inset 0 0 0 1px rgba(79, 142, 247, 0.30);
+    transition: .2s ease-out;
 }
 
-.menu .links-menu .menu-left .content-menu .one{
+.menu .links-menu .menu-left .content-menu .one {
     display: flex;
     width: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
-.menu .links-menu .menu-left .content-menu .one img{
+.menu .links-menu .menu-left .content-menu .one img {
     width: 25px;
     margin-left: 5px;
+    filter: brightness(0) invert(1) opacity(0.7);
+    transition: filter .2s ease;
 }
-.menu .links-menu .menu-left .content-menu .one p{
+
+.menu .links-menu .menu-left .content-menu .one p {
     display: block;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
-    font-size: 15px;
+    font-size: 14px;
     margin-left: 10px;
-    color: #000;
+    color: rgba(255, 255, 255, 0.80);
+    transition: color .2s ease;
 }
 
-.menu .links-menu .menu-left li:hover .content-menu .one p{
-    color: var(--color-azul);
+/* Hover text + icon coloring */
+.menu .links-menu .menu-left li:hover .content-menu .one p {
+    color: #fff;
 }
-.menu .links-menu .menu-left li:hover .content-menu .one img{
-    filter: invert(11%) sepia(84%) saturate(7406%) hue-rotate(249deg) brightness(87%) contrast(123%);
+.menu .links-menu .menu-left li:hover .content-menu .one img {
+    filter: brightness(0) invert(1) opacity(1);
 }
 
-.menu .links-menu .menu-left .content-menu .two img{
+/* Chevron arrow */
+.menu .links-menu .menu-left .content-menu .two img {
     width: 20px;
     transition: .2s linear;
-    transform: translatey(5px);
+    transform: translateY(5px);
     margin-right: 5px;
+    filter: brightness(0) invert(1) opacity(0.6);
 }
 
-.menu .links-menu .menu-left li:hover .content-menu .two img{
-    filter: invert(11%) sepia(84%) saturate(7406%) hue-rotate(249deg) brightness(87%) contrast(123%);
+.menu .links-menu .menu-left li:hover .content-menu .two img {
+    filter: brightness(0) invert(1) opacity(1);
 }
-.menu .links-menu   .content-menu .two .img.activo{
+
+.menu .links-menu .content-menu .two .img.activo {
     transition: .2s linear;
     transform: rotate(180deg);
 }
 
-.menu .content-menu .content-general{
+/* ============================================================
+   SUB-MENU (expanded sections)
+   ============================================================ */
+.menu .content-menu .content-general {
     display: flex;
     transition: .3s;
     cursor: pointer;
-    background: var(--color-medioBlanco);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    margin: 2px 4px;
 }
-.menu .content-menu .content-general.activo{
+
+.menu .content-menu .content-general.activo {
     transition: .3s;
-    background: var(--color-medioBlanco);
+    background: rgba(255, 255, 255, 0.06);
 }
 
-
-.menu .content-menu .content-general ul{
+.menu .content-menu .content-general ul {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
-.menu .content-menu .content-general ul li{
+.menu .content-menu .content-general ul li {
     margin-left: 20px;
     border: none;
-    border-radius: 5px;
-    padding: 8px 0;
+    border-radius: 8px;
+    padding: 7px 0;
+    transition: background .2s ease;
 }
 
-.menu .content-menu .content-general li img{
+.menu .content-menu .content-general li img {
     width: 22px;
     margin-left: 10px;
     margin-right: 8px;
+    filter: brightness(0) invert(1) opacity(0.65);
+    transition: filter .2s ease;
 }
 
-.menu .content-menu .content-general li:hover{
-    background: var(--color-azul-transparente);
+/* Sub-item pill hover */
+.menu .content-menu .content-general li:hover {
+    background: rgba(79, 142, 247, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(79, 142, 247, 0.25);
 }
 
-.menu .content-menu .content-general a{
+.menu .content-menu .content-general a {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     margin: 0;
     text-decoration: none;
-    color: var(--color-gray);
-}
-.menu .content-menu .content-general li:hover a{
-    color: var(--color-azul);
-}
-.menu .content-menu .content-general li:hover a img{
-    filter: invert(9%) sepia(96%) saturate(7461%) hue-rotate(248deg) brightness(91%) contrast(113%);
+    color: rgba(255, 255, 255, 0.70);
+    transition: color .2s ease;
 }
 
-/* administracion */
+.menu .content-menu .content-general li:hover a {
+    color: #fff;
+}
 
-.menu .links-menu .menu-left .content-menu .administracion{
+.menu .content-menu .content-general li:hover a img {
+    filter: brightness(0) invert(1) opacity(1);
+}
+
+/* ============================================================
+   SECTION LABEL VARIANTS (administracion / acreditacion / etc.)
+   ============================================================ */
+.menu .links-menu .menu-left .content-menu .administracion,
+.menu .links-menu .menu-left .content-menu .acreditacion,
+.menu .links-menu .menu-left .content-menu .virtual,
+.menu .links-menu .menu-left .content-menu .documentos-academicos {
     display: flex;
     flex-direction: row;
-    align-items: start;
-    justify-content: space-between;
-}
-
-/* acreditacion */
-
-.menu .links-menu .menu-left .content-menu .acreditacion{
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: space-between;
-}
-/* virtual */
-
-.menu .links-menu .menu-left .content-menu .virtual{
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: space-between;
-}
-
-/* documentos acedemicos */
-.menu .links-menu .menu-left .content-menu .documentos-academicos{
-    display: flex;
-    flex-direction: row;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
 }

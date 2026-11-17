@@ -1,3 +1,4 @@
+<?php require_once '../controller/auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
     <div class="container-menu">
       <div class="menu" id="menu">
         <div class="header-menu">
-          <a href="index.html"><img src="/public/assets/img/UNI.png" alt="Uni" /></a>
+          <a href="/index.php"><img src="/public/assets/img/UNI.png" alt="Uni" /></a>
           <div class="title-menu-h">
             <label>UNI EARPFIM</label>
             <label>DOCENTE</label>
@@ -45,7 +46,7 @@
                   <div class="content-general" id="c-general">
                     <ul>
                       <li>
-                        <a href="#" onclick="mostrarHorario(mostrarSeccionPrincipal())"><img src="/public/assets/img/pen-solid.svg" alt="M.H.C" />Mi Horario de Clases</a>
+                        <a href="#" onclick="mostrarHorario()"><img src="/public/assets/img/pen-solid.svg" alt="M.H.C" />Mi Horario de Clases</a>
                       </li>
                     </ul>
                   </div>
@@ -71,11 +72,14 @@
             <span class="line-three"></span>
           </div>
           <div class="name">
-            <label>Obregon Ramos, Maximo</label>
+            <label><?= htmlspecialchars($_SESSION['nombre'] ?? 'Usuario') ?></label>
           </div>
         </div>
-        <div class="settings" onclick="sidebarToggle()">
-          <img src="/public/assets/img/tres-puntos.png" alt="settings" />
+        <div class="settings">
+          <a href="../controller/logout.php" class="btn-logout" title="Cerrar sesión">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Cerrar sesión</span>
+          </a>
         </div>
       </header>
 
@@ -96,7 +100,7 @@
     <iframe src="./horario.html" width="100%" height="1050px"></iframe>
   </div>
 
-  <script src="../../public/assets/js/usuario.js"></script>
+  <script src="/public/assets/js/usuario.js"></script>
 </body>
 
 </html>

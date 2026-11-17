@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+
+# Skills
+.agents/skills/accessibility/
+.agents/skills/frontend-design/
+.agents/skills/nodejs-backend-patterns/
+.agents/skills/nodejs-best-practices/
+.agents/skills/seo/
+skills-lock.json

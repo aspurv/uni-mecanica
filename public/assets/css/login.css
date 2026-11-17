@@ -1,148 +1,271 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Poppins:wght@300;400;500&display=swap");
 
-* {
+/* ============================================================
+   GLASS / LIQUID LOGIN PAGE
+   ============================================================ */
+
+/* --- Reset --- */
+*, *::before, *::after {
     margin: 0;
     box-sizing: border-box;
     padding: 0;
 }
 
-
-.header {
-    background-color: #234fb2;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 2px 2px 5px gray;
-    padding: 0;
-}
-.header__imagen {
-    display: inline-flex;
-    position: relative;
-    right: 10px;
-    height: 6rem;
-}
-.header__imagen img {
-    position: relative;
-    top: 10px;
-}
-.header--titulo {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    top: 1.5rem;
-    height: 3rem;
-    color: white;
-    font-family: "Roboto", sans-serif;
-    font-size: 1.2rem;
+/* --- CSS Variables --- */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --glass-blur: blur(20px);
+    --accent: #4f8ef7;
+    --accent-dark: #1a5cf6;
+    --text-primary: #0f172a;
+    --text-secondary: rgba(15, 23, 42, 0.6);
+    --surface: rgba(255, 255, 255, 0.70);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
-.content__text {
-    width: 50%;
+/* --- Animated Liquid Gradient Body --- */
+body.glass-page {
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    font-family: "Roboto", sans-serif;
-    font-size: 22px;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    position: relative;
-    top: 20px;
-}
-.content__text p {
-    padding: 0;
-    margin: 0;
-}
-
-/* Login titulo */
-.form-login{
-/*     background-color: antiquewhite;
- */    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 22%;
-    height: 300px;
-    padding: 10px;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0d1b6e, #3b1fa8, #0ea5e9);
+    background-size: 300% 300%;
+    animation: liquidShift 12s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes liquidShift {
+    0%   { background-position: 0%   50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0%   50%; }
+}
+
+/* --- Glass Card --- */
+.login-glass-card {
     position: relative;
-    top: 40px;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: 5px;
-    border: 1px solid rgb(218, 208, 208)
-    ;
+    width: 420px;
+    max-width: 95vw;
+    padding: 44px 40px 36px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.3);
 }
-.form-login__user{
-/*     background-color: blueviolet;
- */    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
+
+/* subtle inner shine */
+.login-glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+    pointer-events: none;
 }
-.form-login__password{
+
+/* --- Card Header (logo + university) --- */
+.login-glass-card__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.login-glass-card__logo {
+    width: 54px;
+    height: auto;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25)) brightness(1.1);
+    flex-shrink: 0;
+}
+
+.login-glass-card__titles {
     display: flex;
     flex-direction: column;
-/*     background-color: blueviolet;
- */    width:100%;
-    padding: 10px;
+    gap: 2px;
 }
-.form-login__btn{
-    padding: 10px;
-    position: relative;
-    top: 20px;
+
+.login-glass-card__uni {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.3;
+    text-transform: uppercase;
 }
-.form-login__btn--modif{
-    background-color: #234fb2;
-    padding: 10px;
-    margin-right: auto;
-    margin-left: auto;
-    color: white;
-    border: 1px solid gray;
+
+.login-glass-card__faculty {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.70);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* --- Divider line --- */
+.login-glass-card__header + .login-glass-card__subtitle::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.18);
+    margin-bottom: 18px;
+}
+
+/* --- Subtitle --- */
+.login-glass-card__subtitle {
+    margin-bottom: 28px;
+}
+
+.login-glass-card__subtitle-main {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 4px;
+}
+
+.login-glass-card__subtitle-desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.60);
+    line-height: 1.5;
+}
+
+/* --- Form --- */
+.login-glass-card__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.form-login__user,
+.form-login__password {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    position: relative;
-    bottom: 10px;
-}
-.form-login__btn--modif:hover{
-    background-color: #0e3181;
-    color: rgb(215, 221, 226);
+    padding: 0 0 20px;
 }
 
+.form-login__user label,
+.form-login__password label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.70);
+    margin-bottom: 6px;
+}
 
-input {
-    margin-right: auto;
-    margin-left: auto;
-    border: none; /* Elimina el borde por defecto */
-    outline: none; /* Elimina el contorno al estar enfocado */
-    border-bottom: 1px solid gray;
+/* Borderless inputs — underline only */
+input[type="text"],
+input[type="password"] {
     width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0;
+    outline: none;
+    padding: 8px 2px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #fff;
+    transition: border-color 0.25s ease;
 }
 
-/* personalizacion placeholder */
-input:focus::placeholder {
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.9rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-bottom-color: var(--accent);
+}
+
+input[type="text"]:focus::placeholder,
+input[type="password"]:focus::placeholder {
     opacity: 0;
 }
-::placeholder {
-    font-size: 1.1rem;
+
+/* --- Button --- */
+.form-login__btn {
+    padding: 8px 0 0;
 }
-/* label{
-    
-} */
-input[type="text"] {
-    width: 250px; /* Tamaño para todos los campos de texto */
+
+.form-login__btn--modif {
+    display: block;
+    width: 100%;
+    padding: 13px 20px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
-input[type="password"]{
-    width: 250px;
+
+.form-login__btn--modif:hover {
+    background: var(--accent-dark);
+    box-shadow: 0 8px 24px rgba(79, 142, 247, 0.45);
+    transform: translateY(-2px);
 }
-@media (max-width:1340px) {
-    .form-login{
-        width:40%
+
+.form-login__btn--modif:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- Error Message --- */
+.login-glass-card__error {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 14px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    color: #fca5a5;
+    font-size: 0.82rem;
+}
+
+/* Show error when card has .error class (PHP-driven) */
+.login-glass-card.error .login-glass-card__error {
+    display: flex;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+    .login-glass-card {
+        padding: 32px 24px 28px;
+        width: 95vw;
     }
-    .custom-btn{
-        width: 230px;
+
+    .login-glass-card__uni {
+        font-size: 0.65rem;
     }
-    label{
-        position: relative;
-        left: 64px;
+
+    .login-glass-card__faculty {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 1340px) {
+    .login-glass-card {
+        width: 420px;
+        max-width: 92vw;
     }
 }

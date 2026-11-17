@@ -1,26 +1,61 @@
-* {
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* ============================================================
+   CSS VARIABLES — Glass Palette
+   ============================================================ */
 :root {
+    /* Legacy variables kept for backward-compat */
     --color-gray: #141518;
     --color-negro: #000;
     --color-rojo2: #E5364A;
     --color-gray-claro: #323335;
     --color-blanco: #fff;
-    --color-medioBlanco: #eeeeee;
-    --color-blancoOscuro: #d4d4d4;
-    --color-azul: #180df4;
-    --color-celeste: #2694F7;
-    --color-azul-transparente: #0041f446;
+    --color-medioBlanco: rgba(255, 255, 255, 0.07);
+    --color-blancoOscuro: rgba(255, 255, 255, 0.15);
+    --color-azul: #4f8ef7;
+    --color-celeste: #60a5fa;
+    --color-azul-transparente: rgba(79, 142, 247, 0.15);
+
+    /* Glass design system */
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --glass-blur: blur(20px);
+    --accent: #4f8ef7;
+    --accent-dark: #1a5cf6;
+    --text-primary: #0f172a;
+    --text-secondary: rgba(15, 23, 42, 0.6);
+    --surface: rgba(255, 255, 255, 0.70);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
+/* ============================================================
+   GLOBAL
+   ============================================================ */
 img::selection {
     display: none;
 }
 
+/* Animated liquid gradient — applied to the app body (views) */
+body {
+    background: linear-gradient(135deg, #0d1b6e, #3b1fa8, #0ea5e9);
+    background-size: 300% 300%;
+    animation: liquidShiftApp 16s ease infinite;
+    min-height: 100vh;
+}
+
+@keyframes liquidShiftApp {
+    0%   { background-position: 0%   50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0%   50%; }
+}
+
+/* ============================================================
+   HEADER BAR — Glass with gradient accent
+   ============================================================ */
 .header {
     display: flex;
     flex-direction: row;
@@ -30,7 +65,13 @@ img::selection {
     transform: translateX(300px);
     transition: .3s ease-out;
     height: 60px;
-    background: #234FB2;
+    background: linear-gradient(90deg, rgba(79,142,247,0.55) 0%, rgba(26,92,246,0.45) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+    position: relative;
+    z-index: 100;
 }
 
 .header.completo {
@@ -39,6 +80,7 @@ img::selection {
     transition: .3s ease-out;
 }
 
+/* --- Left cluster (hamburger + name) --- */
 .header .one {
     display: flex;
     flex-direction: row;
@@ -56,6 +98,7 @@ img::selection {
     margin-left: 0px;
 }
 
+/* Hamburger lines — white */
 .header .one .abrir-menu span {
     display: flex;
     flex-direction: column;
@@ -64,6 +107,7 @@ img::selection {
     width: 30px;
     height: 4px;
     background: #fff;
+    border-radius: 2px;
 }
 
 .header .one .abrir-menu.desactivado span {
@@ -86,6 +130,7 @@ img::selection {
     width: 30px;
     height: 4px;
     background: #fff;
+    border-radius: 2px;
 }
 
 .header .one .cerrar-menu.activo span {
@@ -100,27 +145,48 @@ img::selection {
     margin-bottom: 4px;
 }
 
+/* App name in header */
 .header .name {
     margin-left: 10px;
-    font-family: sans-serif;
-    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
     font-weight: 400;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: var(--color-blanco);
 }
 
+/* Settings & Logout */
 .header .settings {
     position: absolute;
     right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.header .settings img {
-    width: 25px;
-    filter: invert(99%) sepia(34%) saturate(339%) hue-rotate(316deg) brightness(121%) contrast(100%);
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
 }
 
-.settings:hover{
-    background-color: #180df4;
+.btn-logout:hover {
+    background: rgba(229, 54, 74, 0.28);
+    border-color: rgba(229, 54, 74, 0.50);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(229, 54, 74, 0.25);
 }
-
-/* ----------------- */
