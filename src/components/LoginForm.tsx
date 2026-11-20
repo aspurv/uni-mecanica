@@ -47,7 +47,7 @@ export default function LoginForm() {
         const destination = rol === 'administrador' ? 'administrador' : 'usuario';
         window.location.href = `${base}${destination}`;
       }
-    }, 600);
+    }, 500);
   };
 
   const handleDemoFill = (role: 'usuario' | 'admin') => {
@@ -62,268 +62,407 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="login-wrapper">
-      <GlassPanel variant="card" className="login-glass-card">
-        {/* Header con Escudo y Títulos */}
-        <div className="card-header">
-          <img 
-            src={`${base}assets/img/logo2.png`} 
-            alt="UNI Logo" 
-            className="uni-logo" 
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = `${base}assets/img/UNI.png`;
-            }}
-          />
-          <div className="header-titles">
-            <span className="uni-title">UNIVERSIDAD NACIONAL DE INGENIERÍA</span>
-            <span className="faculty-title">FACULTAD DE INGENIERÍA MECÁNICA</span>
-          </div>
-        </div>
-
-        {/* Subtítulos */}
-        <div className="card-subtitle">
-          <div className="badge-row">
-            <GlassBadge tone="blue" dot>PORTAL ACADÉMICO</GlassBadge>
-          </div>
-          <h2 className="intranet-title">INTRANET EARPFIM</h2>
-          <p className="intranet-desc">Sistema de Planificación de Recursos Académicos y Empresariales</p>
-        </div>
-
-        {/* Formulario */}
-        <form onSubmit={handleSubmit} className="login-form">
-          <GlassInput
-            id="usuario"
-            label="Usuario"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            placeholder="Ingrese su usuario"
-            autoComplete="username"
-            disabled={loading}
-          />
-
-          <div className="password-group">
-            <GlassInput
-              id="password"
-              label="Contraseña"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Ingrese su contraseña"
-              autoComplete="current-password"
-              disabled={loading}
+    <div className="apple-login-container">
+      {/* Top subtle Apple-style navigation header */}
+      <header className="apple-global-nav">
+        <div className="nav-content">
+          <div className="nav-brand">
+            <img 
+              src={`${base}assets/img/UNI.png`} 
+              alt="UNI" 
+              className="brand-icon"
             />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-              tabIndex={-1}
-            >
-              {showPassword ? 'Ocultar' : 'Ver'}
-            </button>
+            <span className="brand-text">Universidad Nacional de Ingeniería</span>
+          </div>
+          <span className="nav-tag">FIM · EARPFIM</span>
+        </div>
+      </header>
+
+      {/* Main Apple Card */}
+      <div className="login-card-container">
+        <div className="apple-card">
+          <div className="card-top">
+            <img 
+              src={`${base}assets/img/logo2.png`} 
+              alt="FIM Logo" 
+              className="hero-logo" 
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = `${base}assets/img/UNI.png`;
+              }}
+            />
+            <h1 className="hero-title">Iniciar sesión</h1>
+            <p className="hero-subtitle">Intranet EARPFIM · Facultad de Ingeniería Mecánica</p>
           </div>
 
-          {error && (
-            <div className="error-banner">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              <span>{error}</span>
+          <form onSubmit={handleSubmit} className="apple-form">
+            <div className="input-block">
+              <label className="field-label" htmlFor="usuario">ID de usuario</label>
+              <input
+                id="usuario"
+                type="text"
+                className="apple-input"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+                placeholder="usuario@uni.pe"
+                autoComplete="username"
+                disabled={loading}
+              />
             </div>
-          )}
 
-          <GlassButton
-            type="submit"
-            variant="prominent"
-            size="lg"
-            className="w-full mt-2"
-            disabled={loading}
-          >
-            {loading ? 'INGRESANDO...' : 'INICIAR SESIÓN'}
-          </GlassButton>
-        </form>
+            <div className="input-block">
+              <div className="label-with-action">
+                <label className="field-label" htmlFor="password">Contraseña</label>
+                <button
+                  type="button"
+                  className="link-subtle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? 'Ocultar' : 'Mostrar'}
+                </button>
+              </div>
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                className="apple-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Contraseña"
+                autoComplete="current-password"
+                disabled={loading}
+              />
+            </div>
 
-        {/* Accesos rápidos de prueba */}
-        <div className="quick-access">
-          <span className="quick-label">Acceso rápido con Glassy UI:</span>
-          <div className="quick-buttons">
-            <GlassButton
-              type="button"
-              variant="soft"
-              size="sm"
-              onClick={() => handleDemoFill('usuario')}
+            {error && (
+              <div className="apple-error-callout">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="apple-button-primary"
+              disabled={loading}
             >
-              👨‍🏫 Docente
-            </GlassButton>
-            <GlassButton
-              type="button"
-              variant="soft"
-              size="sm"
-              onClick={() => handleDemoFill('admin')}
-            >
-              ⚙️ Administrador
-            </GlassButton>
+              {loading ? 'Iniciando sesión…' : 'Continuar'}
+            </button>
+          </form>
+
+          {/* Quick Access Pills */}
+          <div className="quick-access-box">
+            <span className="quick-title">Cuentas demo de prueba</span>
+            <div className="pill-group">
+              <button
+                type="button"
+                className="apple-pill-btn"
+                onClick={() => handleDemoFill('usuario')}
+              >
+                Docente
+              </button>
+              <button
+                type="button"
+                className="apple-pill-btn"
+                onClick={() => handleDemoFill('admin')}
+              >
+                Administrador
+              </button>
+            </div>
           </div>
         </div>
-      </GlassPanel>
+
+        {/* Footer info style Apple */}
+        <footer className="apple-footer">
+          <p>Copyright © 2026 Universidad Nacional de Ingeniería. Todos los derechos reservados.</p>
+          <div className="footer-links">
+            <span>Privacidad</span>
+            <span>Términos de uso</span>
+            <span>Soporte UNI</span>
+          </div>
+        </footer>
+      </div>
 
       <style>{`
-        .login-wrapper {
+        .apple-login-container {
           min-height: 100vh;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 24px;
-        }
-
-        .login-glass-card {
-          width: 100%;
-          max-width: 440px;
-          padding: 36px 32px;
-          border-radius: 24px;
-          animation: cardFloat 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes cardFloat {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        .card-header {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          padding-bottom: 20px;
-          border-bottom: 1px solid var(--lg-border);
-        }
-
-        .uni-logo {
-          width: 52px;
-          height: auto;
-          filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-        }
-
-        .header-titles {
-          display: flex;
           flex-direction: column;
-        }
-
-        .uni-title {
-          font-family: var(--font-heading);
-          font-size: 11.5px;
-          font-weight: 700;
-          letter-spacing: 0.05em;
-          color: rgba(255, 255, 255, 0.95);
-          line-height: 1.3;
-        }
-
-        .faculty-title {
-          font-family: var(--font-heading);
-          font-size: 10.5px;
-          font-weight: 500;
-          letter-spacing: 0.06em;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .card-subtitle {
-          margin-top: 22px;
-          margin-bottom: 24px;
-          text-align: center;
-        }
-
-        .badge-row {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 12px;
-        }
-
-        .intranet-title {
-          font-family: var(--font-heading);
-          font-size: 20px;
-          font-weight: 700;
-          color: #ffffff;
-          letter-spacing: 0.03em;
-        }
-
-        .intranet-desc {
-          font-size: 11.5px;
-          color: var(--lg-muted-foreground);
-          margin-top: 4px;
-          line-height: 1.4;
-        }
-
-        .login-form {
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
-        }
-
-        .password-group {
+          background: #000000;
+          color: #f5f5f7;
           position: relative;
         }
 
-        .toggle-password {
-          position: absolute;
-          right: 12px;
-          top: 36px;
-          background: none;
-          border: none;
-          color: var(--lg-muted-foreground);
-          font-size: 11.5px;
-          cursor: pointer;
-          transition: color 0.2s;
-          z-index: 5;
-        }
-
-        .toggle-password:hover {
-          color: #ffffff;
-        }
-
-        .error-banner {
+        .apple-global-nav {
+          height: 44px;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          position: sticky;
+          top: 0;
+          z-index: 100;
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 10px 14px;
-          background: rgba(239, 68, 68, 0.2);
-          border: 1px solid rgba(239, 68, 68, 0.45);
-          border-radius: 10px;
-          color: #fca5a5;
-          font-size: 12px;
+          padding: 0 24px;
         }
 
-        .w-full {
+        .nav-content {
+          max-width: 1024px;
+          margin: 0 auto;
           width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
 
-        .mt-2 {
-          margin-top: 8px;
+        .nav-brand {
+          display: flex;
+          align-items: center;
+          gap: 10px;
         }
 
-        .quick-access {
-          margin-top: 24px;
-          padding-top: 18px;
-          border-top: 1px solid var(--lg-border);
+        .brand-icon {
+          width: 20px;
+          height: auto;
+          opacity: 0.9;
+        }
+
+        .brand-text {
+          font-size: 12px;
+          font-weight: 500;
+          color: #d1d1d6;
+          letter-spacing: -0.01em;
+        }
+
+        .nav-tag {
+          font-size: 11px;
+          color: #86868b;
+          font-weight: 400;
+        }
+
+        .login-card-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 48px 20px 24px;
+        }
+
+        .apple-card {
+          width: 100%;
+          max-width: 440px;
+          background: rgba(22, 22, 23, 0.75);
+          backdrop-filter: blur(30px) saturate(190%);
+          -webkit-backdrop-filter: blur(30px) saturate(190%);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 24px;
+          padding: 44px 38px 36px;
+          box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+          animation: appleFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes appleFadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.985) translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .card-top {
+          text-align: center;
+          margin-bottom: 32px;
+        }
+
+        .hero-logo {
+          width: 58px;
+          height: auto;
+          margin-bottom: 18px;
+          filter: drop-shadow(0 4px 16px rgba(0, 113, 227, 0.25));
+        }
+
+        .hero-title {
+          font-size: 26px;
+          font-weight: 600;
+          letter-spacing: -0.025em;
+          color: #f5f5f7;
+          margin-bottom: 6px;
+        }
+
+        .hero-subtitle {
+          font-size: 13px;
+          color: #86868b;
+          letter-spacing: -0.01em;
+        }
+
+        .apple-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .input-block {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .field-label {
+          font-size: 12px;
+          font-weight: 500;
+          color: #a1a1a6;
+          letter-spacing: -0.01em;
+        }
+
+        .label-with-action {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .link-subtle {
+          background: none;
+          border: none;
+          color: #2997ff;
+          font-size: 12px;
+          cursor: pointer;
+          padding: 0;
+        }
+
+        .link-subtle:hover {
+          text-decoration: underline;
+        }
+
+        .apple-input {
+          width: 100%;
+          height: 48px;
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: 12px;
+          padding: 0 16px;
+          color: #f5f5f7;
+          font-size: 15px;
+          font-family: inherit;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .apple-input:focus {
+          border-color: #0071e3;
+          box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.25);
+          outline: none;
+        }
+
+        .apple-input::placeholder {
+          color: #55555a;
+        }
+
+        .apple-error-callout {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(255, 69, 58, 0.12);
+          border: 1px solid rgba(255, 69, 58, 0.3);
+          border-radius: 12px;
+          padding: 12px 14px;
+          color: #ff453a;
+          font-size: 13px;
+        }
+
+        .apple-button-primary {
+          width: 100%;
+          height: 48px;
+          background: #0071e3;
+          color: #ffffff;
+          border: none;
+          border-radius: 980px;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: -0.015em;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          margin-top: 4px;
+        }
+
+        .apple-button-primary:hover:not(:disabled) {
+          background: #0077ed;
+          transform: scale(1.01);
+          box-shadow: 0 4px 16px rgba(0, 113, 227, 0.4);
+        }
+
+        .apple-button-primary:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .quick-access-box {
+          margin-top: 32px;
+          padding-top: 24px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 12px;
         }
 
-        .quick-label {
-          font-size: 11px;
-          color: var(--lg-muted-foreground);
+        .quick-title {
+          font-size: 12px;
+          color: #86868b;
         }
 
-        .quick-buttons {
+        .pill-group {
           display: flex;
           gap: 10px;
+        }
+
+        .apple-pill-btn {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #d1d1d6;
+          border-radius: 980px;
+          padding: 7px 18px;
+          font-size: 12px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .apple-pill-btn:hover {
+          background: rgba(255, 255, 255, 0.16);
+          color: #ffffff;
+          border-color: rgba(255, 255, 255, 0.24);
+        }
+
+        .apple-footer {
+          margin-top: 36px;
+          text-align: center;
+          font-size: 11px;
+          color: #6e6e73;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .footer-links {
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+        }
+
+        .footer-links span {
+          cursor: pointer;
+          transition: color 0.15s;
+        }
+
+        .footer-links span:hover {
+          color: #a1a1a6;
         }
       `}</style>
     </div>

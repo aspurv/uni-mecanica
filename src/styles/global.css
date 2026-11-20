@@ -1,89 +1,166 @@
 /* ============================================================
-   GLOBAL & LIQUID GLASS DESIGN SYSTEM
+   APPLE DESIGN SYSTEM (apple.com/la) - UNI EARPFIM
+   Typography, Frosted Glass, Pill Controls, High Polish
    ============================================================ */
 
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
-  --color-primary: #3b82f6;
-  --color-primary-dark: #1d4ed8;
-  --color-accent: #60a5fa;
-  --color-bg-start: #0a0f24;
-  --color-bg-mid: #1e1b4b;
-  --color-bg-end: #0c4a6e;
+  /* Apple Palette */
+  --apple-black: #000000;
+  --apple-dark-bg: #000000;
+  --apple-dark-surface: #161617;
+  --apple-dark-card: rgba(26, 26, 27, 0.65);
+  --apple-dark-card-hover: rgba(38, 38, 41, 0.75);
+  --apple-dark-border: rgba(255, 255, 255, 0.12);
+  --apple-dark-border-focus: #0071e3;
+
+  --apple-blue: #0071e3;
+  --apple-blue-hover: #0077ed;
+  --apple-blue-light: rgba(0, 113, 227, 0.15);
   
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-hover: rgba(255, 255, 255, 0.14);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-border-focus: rgba(96, 165, 250, 0.5);
-  --glass-blur: blur(20px);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+  --apple-gray-subtle: #86868b;
+  --apple-gray-border: #424245;
+  --apple-gray-chip: rgba(255, 255, 255, 0.08);
 
-  --text-white: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.65);
-  --text-dim: rgba(255, 255, 255, 0.45);
+  /* Glassmorphism / macOS Vibrancy */
+  --glass-bg: rgba(22, 22, 23, 0.72);
+  --glass-bg-hover: rgba(32, 32, 35, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-blur: blur(25px) saturate(190%);
+  --glass-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.5);
 
-  --font-main: 'Poppins', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Montserrat', system-ui, sans-serif;
+  --text-white: #f5f5f7;
+  --text-muted: #86868b;
+  --text-dim: #6e6e73;
+
+  /* Typography */
+  --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Liquid/Glassy UI Overrides */
+  --lg-bg: #000000;
+  --lg-border: rgba(255, 255, 255, 0.12);
+  --lg-muted-foreground: #86868b;
+  --lg-primary: #0071e3;
 }
 
 body {
   font-family: var(--font-main);
   min-height: 100vh;
   color: var(--text-white);
-  background: linear-gradient(135deg, #090d1a 0%, #17153b 40%, #0d2847 70%, #051329 100%);
-  background-size: 300% 300%;
-  animation: liquidMesh 20s ease infinite;
+  background-color: #000000;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 113, 227, 0.15), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(147, 51, 234, 0.08), transparent 70%),
+    #000000;
+  background-attachment: fixed;
   overflow-x: hidden;
+  letter-spacing: -0.011em;
 }
 
-@keyframes liquidMesh {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Scrollbar */
+/* Subtle Apple Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  border-radius: 980px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.35);
 }
 
-/* Glass Utility Classes */
-.glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 16px;
+/* Apple Cards & Glass Panels */
+.glass-card, .lg-glass-surface {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+  border-radius: 20px !important;
 }
 
+/* Apple Pill */
 .glass-pill {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 9999px;
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 980px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-pill:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.02);
+}
+
+/* Apple Buttons */
+.lg-button {
+  font-family: var(--font-main) !important;
+  border-radius: 980px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.015em !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.lg-button--primary, .lg-button--prominent {
+  background: var(--apple-blue) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.35) !important;
+}
+
+.lg-button--primary:hover, .lg-button--prominent:hover {
+  background: var(--apple-blue-hover) !important;
+  transform: scale(1.015) !important;
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.45) !important;
+}
+
+.lg-button--soft {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f5f5f7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.lg-button--soft:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* Apple Inputs */
+.lg-input__field {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  color: #f5f5f7 !important;
+  font-family: var(--font-main) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.lg-input__field:focus {
+  border-color: var(--apple-blue) !important;
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.25) !important;
+  outline: none !important;
+}
+
+/* Badges Apple Style */
+.lg-badge {
+  border-radius: 980px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  padding: 3px 10px !important;
 }
