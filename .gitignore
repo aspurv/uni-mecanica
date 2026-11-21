@@ -24,9 +24,5 @@ desktop.ini
 .vscode/
 
 # Skills
-.agents/skills/accessibility/
-.agents/skills/frontend-design/
-.agents/skills/nodejs-backend-patterns/
-.agents/skills/nodejs-best-practices/
-.agents/skills/seo/
+.agents/skills/
 skills-lock.json

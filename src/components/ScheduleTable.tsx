@@ -146,10 +146,10 @@ export default function ScheduleTable() {
               className="apple-primary-mini-btn"
               onClick={() => alert(`Conectando a sala virtual de ${selectedCourse.split(' ')[0]}...`)}
             >
-              🔗 Entrar a Sala
+              Entrar a sala
             </button>
-            <button className="apple-close-btn" onClick={() => setSelectedCourse(null)}>
-              ✕
+            <button className="apple-close-btn" onClick={() => setSelectedCourse(null)} aria-label="Cerrar">
+              Cerrar
             </button>
           </div>
         </div>
@@ -415,12 +415,9 @@ export default function ScheduleTable() {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.14);
           color: #d1d1d6;
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          border-radius: 980px;
+          padding: 6px 14px;
+          font-size: 12px;
           cursor: pointer;
           transition: all 0.2s;
         }
