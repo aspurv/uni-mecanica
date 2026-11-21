@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface HorarioData {
   tablaCuerpo: string;
@@ -28,9 +28,35 @@ const DEFAULT_SCHEDULE: HorarioData = {
 };
 
 const DIAS = ['Hora', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+const COURSES = ['Todos', 'MC510', 'MC520', 'MC500'];
 
 export default function ScheduleTable() {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+  const [filterCourse, setFilterCourse] = useState<string>('Todos');
+  const [currentDayIdx, setCurrentDayIdx] = useState<number>(-1);
+  const [currentHourStr, setCurrentHourStr] = useState<string>('');
+  const [activeCourseNow, setActiveCourseNow] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Detectar día de hoy (1 = Lunes, ..., 7 = Domingo)
+    const now = new Date();
+    const day = now.getDay();
+    const mappedDay = day === 0 ? 7 : day; // Domingo = 7
+    setCurrentDayIdx(mappedDay);
+
+    const hour = now.getHours();
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const slot = `${pad(hour)}-${pad(hour + 1)}`;
+    setCurrentHourStr(slot);
+
+    // Buscar si hay clase ahora
+    const row = DEFAULT_SCHEDULE.datos.find(r => r[0] === slot);
+    if (row && row[mappedDay]) {
+      setActiveCourseNow(row[mappedDay]);
+    } else {
+      setActiveCourseNow(null);
+    }
+  }, []);
 
   const getCourseStyle = (course: string) => {
     if (course.includes('MC510')) {
@@ -75,8 +101,31 @@ export default function ScheduleTable() {
           <p className="schedule-desc">Facultad de Ingeniería Mecánica · Ciclo 2024-II / Definitivo</p>
         </div>
         <div className="apple-badges-row">
+          {activeCourseNow ? (
+            <span className="apple-status-pill live-pill">
+              <span className="live-dot" /> EN CURSO AHORA: {activeCourseNow.split(' ')[0]}
+            </span>
+          ) : (
+            <span className="apple-status-pill neutral">Sin clase en este momento</span>
+          )}
           <span className="apple-status-pill green">● Definitivo</span>
-          <span className="apple-status-pill neutral">16 hrs / semana</span>
+          <span className="apple-status-pill neutral">16 hrs / sem</span>
+        </div>
+      </div>
+
+      {/* Course Filter Bar (Pill Filter) */}
+      <div className="filter-bar">
+        <span className="filter-label">Filtrar asignatura:</span>
+        <div className="filter-pills">
+          {COURSES.map((c) => (
+            <button
+              key={c}
+              className={`filter-btn ${filterCourse === c ? 'active' : ''}`}
+              onClick={() => setFilterCourse(c)}
+            >
+              {c}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -89,12 +138,20 @@ export default function ScheduleTable() {
             </span>
             <div>
               <h4 className="detail-title">{selectedCourse}</h4>
-              <p className="detail-meta">Modalidad Virtual Teórico · Sistema de Registro FIM</p>
+              <p className="detail-meta">Modalidad Virtual Teórico · FIM UNI</p>
             </div>
           </div>
-          <button className="apple-close-btn" onClick={() => setSelectedCourse(null)}>
-            ✕ Cerrar
-          </button>
+          <div className="detail-actions">
+            <button 
+              className="apple-primary-mini-btn"
+              onClick={() => alert(`Conectando a sala virtual de ${selectedCourse.split(' ')[0]}...`)}
+            >
+              🔗 Entrar a Sala
+            </button>
+            <button className="apple-close-btn" onClick={() => setSelectedCourse(null)}>
+              ✕
+            </button>
+          </div>
         </div>
       )}
 
@@ -103,28 +160,42 @@ export default function ScheduleTable() {
         <table className="apple-schedule-table">
           <thead>
             <tr>
-              {DIAS.map((dia, idx) => (
-                <th key={idx} className={idx === 0 ? 'th-hour' : ''}>{dia}</th>
-              ))}
+              {DIAS.map((dia, idx) => {
+                const isToday = idx === currentDayIdx;
+                return (
+                  <th key={idx} className={`${idx === 0 ? 'th-hour' : ''} ${isToday ? 'th-today' : ''}`}>
+                    {dia}
+                    {isToday && <span className="today-badge">Hoy</span>}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
             {DEFAULT_SCHEDULE.datos.map((row, rIdx) => {
               const hour = row[0];
+              const isCurrentHour = hour === currentHourStr;
               const days = row.slice(1);
               return (
-                <tr key={rIdx}>
-                  <td className="td-hour">{hour}</td>
+                <tr key={rIdx} className={isCurrentHour ? 'tr-current-hour' : ''}>
+                  <td className={`td-hour ${isCurrentHour ? 'td-hour-current' : ''}`}>
+                    {hour}
+                  </td>
                   {days.map((cell, cIdx) => {
+                    const dayNumber = cIdx + 1;
+                    const isTodayCell = dayNumber === currentDayIdx;
+
                     if (!cell) {
-                      return <td key={cIdx} className="td-empty" />;
+                      return <td key={cIdx} className={`td-empty ${isTodayCell ? 'td-today-col' : ''}`} />;
                     }
 
+                    const isDimmed = filterCourse !== 'Todos' && !cell.includes(filterCourse);
                     const style = getCourseStyle(cell);
+
                     return (
-                      <td key={cIdx} className="td-cell">
+                      <td key={cIdx} className={`td-cell ${isTodayCell ? 'td-today-col' : ''}`}>
                         <div
-                          className="apple-course-chip"
+                          className={`apple-course-chip ${isDimmed ? 'dimmed' : ''}`}
                           style={{
                             backgroundColor: style.bg,
                             borderColor: style.border,
@@ -149,7 +220,7 @@ export default function ScheduleTable() {
         .apple-schedule-container {
           display: flex;
           flex-direction: column;
-          gap: 24px;
+          gap: 20px;
           animation: appleFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -159,6 +230,8 @@ export default function ScheduleTable() {
           align-items: flex-end;
           padding-bottom: 20px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          flex-wrap: wrap;
+          gap: 16px;
         }
 
         .apple-category {
@@ -184,7 +257,9 @@ export default function ScheduleTable() {
 
         .apple-badges-row {
           display: flex;
-          gap: 10px;
+          gap: 8px;
+          align-items: center;
+          flex-wrap: wrap;
         }
 
         .apple-status-pill {
@@ -208,13 +283,78 @@ export default function ScheduleTable() {
           border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
+        .live-pill {
+          background: rgba(0, 113, 227, 0.2);
+          border: 1px solid #0071e3;
+          color: #2997ff;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .live-dot {
+          width: 7px;
+          height: 7px;
+          background: #30d158;
+          border-radius: 50%;
+          box-shadow: 0 0 10px #30d158;
+          animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        /* Filter Pills */
+        .filter-bar {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .filter-label {
+          font-size: 12px;
+          color: #86868b;
+          font-weight: 500;
+        }
+
+        .filter-pills {
+          display: flex;
+          gap: 8px;
+        }
+
+        .filter-btn {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #86868b;
+          font-size: 12px;
+          padding: 5px 14px;
+          border-radius: 980px;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .filter-btn:hover {
+          color: #f5f5f7;
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        .filter-btn.active {
+          background: #0071e3;
+          color: #ffffff;
+          border-color: #0071e3;
+          font-weight: 500;
+        }
+
+        /* Detail Callout */
         .course-detail-callout {
           background: rgba(22, 22, 23, 0.85);
           backdrop-filter: blur(30px);
           -webkit-backdrop-filter: blur(30px);
           border: 1px solid rgba(255, 255, 255, 0.14);
           border-radius: 18px;
-          padding: 18px 24px;
+          padding: 16px 22px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -248,20 +388,46 @@ export default function ScheduleTable() {
           margin-top: 2px;
         }
 
+        .detail-actions {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .apple-primary-mini-btn {
+          background: #0071e3;
+          color: #fff;
+          border: none;
+          padding: 7px 16px;
+          border-radius: 980px;
+          font-size: 12px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .apple-primary-mini-btn:hover {
+          background: #0077ed;
+          transform: scale(1.02);
+        }
+
         .apple-close-btn {
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.14);
           color: #d1d1d6;
-          border-radius: 980px;
-          padding: 6px 14px;
-          font-size: 12px;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
           transition: all 0.2s;
         }
 
         .apple-close-btn:hover {
-          background: rgba(255, 255, 255, 0.16);
-          color: #ffffff;
+          background: rgba(255, 255, 255, 0.18);
+          color: #fff;
         }
 
         /* Table */
@@ -291,6 +457,21 @@ export default function ScheduleTable() {
           border-right: 1px solid rgba(255, 255, 255, 0.04);
         }
 
+        .th-today {
+          background: rgba(0, 113, 227, 0.14) !important;
+          color: #2997ff !important;
+        }
+
+        .today-badge {
+          display: block;
+          font-size: 10px;
+          font-weight: 500;
+          color: #2997ff;
+          margin-top: 2px;
+          text-transform: uppercase;
+          letter-spacing: 0.02em;
+        }
+
         .th-hour {
           width: 90px;
         }
@@ -302,12 +483,26 @@ export default function ScheduleTable() {
           height: 48px;
         }
 
+        .td-today-col {
+          background: rgba(0, 113, 227, 0.03);
+        }
+
+        .tr-current-hour {
+          background: rgba(255, 255, 255, 0.02);
+        }
+
         .td-hour {
           font-weight: 500;
           color: #86868b;
           text-align: center;
           background: rgba(0, 0, 0, 0.2);
           font-variant-numeric: tabular-nums;
+        }
+
+        .td-hour-current {
+          color: #2997ff;
+          font-weight: 600;
+          background: rgba(0, 113, 227, 0.12);
         }
 
         .td-empty {
@@ -329,6 +524,11 @@ export default function ScheduleTable() {
           transform: scale(1.02);
           filter: brightness(1.2);
           box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .apple-course-chip.dimmed {
+          opacity: 0.15;
+          filter: grayscale(80%);
         }
 
         .chip-dot {
